@@ -26,7 +26,8 @@ class Endereco(db.Model):
     bairro = db.Column(db.String)
     complemento = db.Column(db.String)
     cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.id'))
-
+    cliente = db.relationship('Cliente', backref=db.backref('endereco', lazy=True))
+    
 
 class Descricao:
     id = db.Column(db.Integer, primary_key=True)
