@@ -1,5 +1,31 @@
 from main import db
 from sqlalchemy.sql import func
+from flask_login import UserMixin
+
+
+class User(db.Model, UserMixin):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(84), nullable=False)
+    email = db.Column(db.String(84), nullable=False, unique=True, index=True)
+    password = db.Column(db.String(255), nullable=False)
+
+
+class Cliente(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(84), nullable=False)
+    email = db.Column(db.String(84), unique=True, index=True)
+    telefone = db.Column(db.String)
+
+
+class Endereco(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    logradouro = db.Column(db.String)
+    numero = db.Column(db.String)
+    cep = db.Column(db.String)
+    bairro = db.Column(db.String)
+    complemento = db.Column(db.String)
+    cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.id'))
 
 
 class Descricao:
